@@ -1,9 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#252ef3"
     tools:context=".auth.LoginActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        >
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_baseline_local_taxi_24"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="20dp"
+            app:tint="@color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:textSize="30sp"
+            android:fontFamily="@font/ubuntubold"
+            android:layout_marginBottom="45dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <EditText
+                android:id="@+id/editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_back"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="40dp"
+                android:hint="Enter Email"
+                android:inputType="textEmailAddress"
+                android:textAlignment="center"
+                android:textColorHint="@android:color/darker_gray"
+                android:textColor="@color/black"
+                android:fontFamily="@font/ubuntumedium"
+                />
+            <EditText
+                android:id="@+id/editPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_back"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:fontFamily="@font/ubuntumedium"
+                android:textColor="@color/black"
+                android:textColorHint="@android:color/darker_gray"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="35dp"
+            android:fontFamily="@font/ubunturegular"
+            android:clickable="true"
+            />
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_back"
+            android:backgroundTint="@color/black"
+            android:text="@string/login"
+            android:fontFamily="@font/ubuntubold"
+            android:textSize="15sp"
+            android:elevation="5dp"
+            android:textColor="@color/white"
+            android:padding="7dp"
+            android:clickable="true"
+            />
+        <Button
+            android:id="@+id/btnFireSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fire_back"
+            android:backgroundTint="@color/black"
+            android:text="Fire Login"
+            android:fontFamily="@font/ubuntubold"
+            android:textSize="15sp"
+            android:padding="7dp"
+            android:clickable="true"
+            android:layout_marginTop="30dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="17dp"
+            >
+            <TextView
+                android:id="@+id/firebaseAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Firebase Account"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/ubuntumedium"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ProgressBar
+                android:id="@+id/progressLogin"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -3,64 +3,82 @@ package com.example.androiddevassessment.fragments.home;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androiddevassessment.R;
+import com.example.androiddevassessment.adapters.MyPagerAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DashboardFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import io.ak1.BubbleTabBar;
+import io.ak1.OnBubbleClickListener;
+
 public class DashboardFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public DashboardFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashboardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DashboardFragment newInstance(String param1, String param2) {
-        DashboardFragment fragment = new DashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ViewPager2 viewPager2;
+    private MyPagerAdapter myPagerAdapter;
+    private BubbleTabBar bubbleTabBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        viewPager2 = view.findViewById(R.id.viewPager);
+        myPagerAdapter = new MyPagerAdapter(this);
+        bubbleTabBar = view.findViewById(R.id.bubbleTabBar);
+
+        myPagerAdapter.addFragments(new HomeFragment());
+        myPagerAdapter.addFragments(new SettingsFragment());
+        myPagerAdapter.addFragments(new SearchFragment());
+        myPagerAdapter.addFragments(new ProfileFragment());
+
+        viewPager2.setAdapter(myPagerAdapter);
+
+        bubbleTabBar.addBubbleListener(new OnBubbleClickListener() {
+            @Override
+            public void onBubbleClick(int i) {
+                switch (i){
+                    case R.id.home:
+                        viewPager2.setCurrentItem(0, true);
+                        break;
+                    case R.id.settings:
+                        viewPager2.setCurrentItem(1, true);
+                        break;
+                    case R.id.search:
+                        viewPager2.setCurrentItem(2, true);
+                        break;
+                    case R.id.profile:
+                        viewPager2.setCurrentItem(3, true);
+                        break;
+                }
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                bubbleTabBar.setSelected(position, false);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
+        return view;
     }
 }

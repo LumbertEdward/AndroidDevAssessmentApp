@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/back"
     tools:context=".fragments.home.DashboardFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Dashboard" />
+        android:layout_above="@id/bubbleTabBar"
+        />
 
-</FrameLayout>
+    <io.ak1.BubbleTabBar
+        android:id="@+id/bubbleTabBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab_back"
+        android:elevation="16dp"
+        android:padding="12dp"
+        app:bubbletab_menuResource="@menu/home_items"
+        app:bubbletab_disabled_icon_color="@android:color/darker_gray"
+        app:bubbletab_horizontal_padding="20dp"
+        app:bubbletab_icon_size="24dp"
+        app:bubbletab_title_size="16sp"
+        app:bubbletab_icon_padding="5sp"
+        app:bubbletab_vertical_padding="10dp"
+        android:layout_alignParentBottom="true"
+        app:bubbletab_custom_font="@font/ubuntubold"
+        app:bubbletab_tab_corner_radius="25dp">
+    </io.ak1.BubbleTabBar>
+
+
+
+</RelativeLayout>

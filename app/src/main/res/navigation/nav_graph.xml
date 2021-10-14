@@ -15,4 +15,14 @@
         android:name="com.example.androiddevassessment.fragments.available.AvailableFragment"
         android:label="fragment_available"
         tools:layout="@layout/fragment_available" />
+    <fragment
+        android:id="@+id/garage"
+        android:name="com.example.androiddevassessment.fragments.garage.Garage"
+        android:label="fragment_garage"
+        tools:layout="@layout/fragment_garage" />
+    <fragment
+        android:id="@+id/topDeals"
+        android:name="com.example.androiddevassessment.fragments.deals.TopDeals"
+        android:label="fragment_top_deals"
+        tools:layout="@layout/fragment_top_deals" />
 </navigation>

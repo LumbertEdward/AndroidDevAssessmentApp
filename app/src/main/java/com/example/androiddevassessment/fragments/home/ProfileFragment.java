@@ -1,66 +1,140 @@
 package com.example.androiddevassessment.fragments.home;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.androiddevassessment.R;
+import com.example.androiddevassessment.interfaces.AllInterfaces;
+import com.example.androiddevassessment.utils.RealmUtils;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ProfileFragment extends Fragment {
+import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class ProfileFragment extends Fragment implements View.OnClickListener {
+    private ImageView profilePic;
+    private TextView name;
+    private ImageView email;
+    private ImageView firstName;
+    private ImageView lastName;
+    private ImageView password;
+    private ImageView support;
+    private RelativeLayout logOut;
+    private CircularProgressIndicator circularProgressIndicator;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String imgUrl;
+    private String userFirstname;
+    private String userLastname;
+    private String userEmail;
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    private BottomSheetDialog bottomSheetDialog;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private AllInterfaces allInterfaces;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        profilePic = view.findViewById(R.id.imgProfile);
+        name = view.findViewById(R.id.nameProfile);
+        email = view.findViewById(R.id.imgEmail);
+        firstName = view.findViewById(R.id.imgFirstName);
+        lastName = view.findViewById(R.id.imgLastName);
+        password = view.findViewById(R.id.imgPassword);
+        support = view.findViewById(R.id.imgSupport);
+        logOut = view.findViewById(R.id.relSignOut);
+        circularProgressIndicator = view.findViewById(R.id.circular_progress_profile);
+        circularProgressIndicator.setProgress(90, 100);
+
+        email.setOnClickListener(this);
+        firstName.setOnClickListener(this);
+        lastName.setOnClickListener(this);
+        password.setOnClickListener(this);
+        support.setOnClickListener(this);
+        logOut.setOnClickListener(this);
+
+        setUser();
+        return view;
+    }
+
+    private void setUser() {
+        if (RealmUtils.checkStatus()){
+            imgUrl = RealmUtils.getUser().getAvatar();
+            userFirstname = RealmUtils.getUser().getFirstname();
+            userLastname = RealmUtils.getUser().getLastname();
+            userEmail = RealmUtils.getUser().getEmail();
+
+            if (imgUrl != null){
+                Picasso.Builder picasso = new Picasso.Builder(getContext());
+                picasso.downloader(new OkHttp3Downloader(getContext()));
+                picasso.build().load(imgUrl).into(profilePic);
+
+                name.setText("Hi, " + userFirstname);
+            }
+        }
+        else {
+            allInterfaces.logOut();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.imgEmail:
+                viewEmail();
+                break;
+            case R.id.imgFirstName:
+                break;
+            case R.id.imgLastName:
+                break;
+            case R.id.imgPassword:
+                break;
+            case R.id.imgSupport:
+                break;
+            case R.id.relSignOut:
+                allInterfaces.logOut();
+                break;
+        }
+
+    }
+
+    private void viewEmail() {
+        bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.SheetDialog);
+        bottomSheetDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        bottomSheetDialog.setContentView(R.layout.email_sheet);
+
+        TextView emailUpdate = bottomSheetDialog.findViewById(R.id.curEmail);
+        TextInputEditText newEmail = bottomSheetDialog.findViewById(R.id.emailUpdate);
+        TextView update = bottomSheetDialog.findViewById(R.id.txtUpdate);
+
+        bottomSheetDialog.show();
+
+        emailUpdate.setText(userEmail);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        allInterfaces = (AllInterfaces) context;
     }
 }

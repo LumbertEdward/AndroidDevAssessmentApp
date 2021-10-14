@@ -7,5 +7,32 @@
     android:background="@color/purple_700"
     tools:context=".auth.SplashScreen">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        >
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_baseline_local_taxi_24"
+            android:layout_gravity="center_horizontal"
+            app:tint="@color/white" />
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/ubuntubold"
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
